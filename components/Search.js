@@ -26,6 +26,17 @@ class Search extends Component {
     }
   };
 
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({ position });
+        console.log(this.state.position.coords)
+      },
+      (error) => alert(error),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
