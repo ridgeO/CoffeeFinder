@@ -13,6 +13,19 @@ class Search extends Component {
     header: null
   }
 
+  constructor(props) {
+    super(props);
+    this.lattitude = '';
+    this.longitude = '';
+    this.state = {
+      yelpResults: {
+        businesses: [
+          { name : '' }
+        ]
+      }
+    }
+  };
+
   render() {
     return (
       <View style={styles.container}>
