@@ -31,11 +31,11 @@ class Search extends Component {
     );
   }
 
-  async fetchData() {
+  fetchData() {
     this.latitude = this.state.position.coords.latitude
     this.longitude = this.state.position.coords.longitude
     console.log(authForm);
-    await fetch('https://api.yelp.com/oauth2/token', {
+    fetch('https://api.yelp.com/oauth2/token', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -46,22 +46,32 @@ class Search extends Component {
       .then((responseJson) => {
         var access_token = responseJson.access_token;
         console.log(access_token);
-        fetch(`https://api.yelp.com/v3/businesses/search?term=coffee&latitude=${this.latitude}&longitude=${this.longitude}&radius=5000`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${access_token}`
-          }
-        }).then((response) => response.json())
-          .then((responseJson) => {
-            console.log(responseJson);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        this.searchForCoffee(access_token);
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  searchForCoffee(token) {
+    fetch(`https://api.yelp.com/v3/businesses/search?term=coffee&latitude=${this.latitude}&longitude=${this.longitude}&radius=5000`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        var businesses = responseJson.businesses;
+        console.log(businesses);
+        this.goToResults(businesses);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  goToResults(results) {
+    this.props.navigation.navigate('Results', { yelpResults: results })
   }
 
   render() {
