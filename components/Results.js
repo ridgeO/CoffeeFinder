@@ -22,11 +22,12 @@ class Results extends Component {
     }
   }
 
-  renderRow(item){
+  renderRow(item) {
     return (
       <TouchableHighlight
         underlayColor="#fff"
         style={{flex: 1}}
+        onPress={() => this.goToDetails(item)}
       >
         <View style={{flexDirection: 'row'}}>
           <Image source={{uri: item.image_url}} style={styles.resultThumbnail}/>
@@ -45,6 +46,10 @@ class Results extends Component {
         </View>
       </TouchableHighlight>
     )
+  }
+
+  goToDetails(params) {
+    this.props.navigation.navigate('Details', {details: params});
   }
 
   render() {
