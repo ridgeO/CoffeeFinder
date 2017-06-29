@@ -54,7 +54,7 @@ class Search extends Component {
   }
 
   searchForCoffee(token) {
-    fetch(`https://api.yelp.com/v3/businesses/search?term=coffee&latitude=${this.latitude}&longitude=${this.longitude}&radius=5000`, {
+    fetch(`https://api.yelp.com/v3/businesses/search?term=coffee&latitude=${this.latitude}&longitude=${this.longitude}&radius=5000&sort_by=distance`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

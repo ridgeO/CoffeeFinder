@@ -39,7 +39,7 @@ class Results extends Component {
               <Text>{item.price}</Text>
             </View>
             <View>
-              <Text>{item.distance}</Text>
+              <Text>{Math.round(item.distance/1609.34*100)/100} mi</Text>
               <Text>{item.location.address1}</Text>
             </View>
           </View>
