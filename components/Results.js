@@ -29,13 +29,18 @@ class Results extends Component {
         style={{flex: 1}}
       >
         <View style={{flexDirection: 'row'}}>
-          <Image source={{uri: item.image_url}} style={{width: 100, height: 100}}/>
+          <Image source={{uri: item.image_url}} style={styles.resultThumbnail}/>
           <View>
-            <Text>{item.name}</Text>
-            <Text>{item.price}</Text>
-            <Text>{item.distance}</Text>
-            <Text>{item.rating}</Text>
-            <Text>({item.review_count})</Text>
+            <Text style={{fontSize: 20}}>{item.name}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text>{item.rating}</Text>
+              <Text>({item.review_count})</Text>
+              <Text>{item.price}</Text>
+            </View>
+            <View>
+              <Text>{item.distance}</Text>
+              <Text>{item.location.address1}</Text>
+            </View>
           </View>
         </View>
       </TouchableHighlight>
