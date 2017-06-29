@@ -7,15 +7,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
+  headLine: {
+    fontSize: 30,
     color: '#606060',
     textAlign: 'center',
-    margin: 10,
+    marginBottom: 50,
   },
-  instructions: {
+  searchButton: {
+    backgroundColor: '#1E90FF',
+    padding: 12,
+    borderRadius: 8
+  },
+  searchButtonText: {
     textAlign: 'center',
-    color: '#606060',
+    color: '#fff',
     fontSize: 18,
   },
 });

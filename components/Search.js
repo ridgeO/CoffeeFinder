@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text
+  Text,
+  TouchableHighlight
 } from 'react-native';
 import styles from './styles.js';
 
@@ -15,16 +16,17 @@ class Search extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
+        <Text style={styles.headLine}>
+          Where is my Coffee?
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <TouchableHighlight
+          underlayColor= '#1E90FF'
+          style={styles.searchButton}
+        >
+          <Text style={styles.searchButtonText}>
+            Find Coffee
+          </Text>
+        </TouchableHighlight>
       </View>
     );
   }
