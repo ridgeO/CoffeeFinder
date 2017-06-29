@@ -8,6 +8,7 @@ import {
   Image
 } from 'react-native';
 import styles from './styles.js';
+import StarRating from 'react-native-star-rating';
 
 class Results extends Component {
   static navigationOptions = {
@@ -32,15 +33,16 @@ class Results extends Component {
         <View style={{flexDirection: 'row'}}>
           <Image source={{uri: item.image_url}} style={styles.resultThumbnail}/>
           <View>
-            <Text style={{fontSize: 20}}>{item.name}</Text>
+            <Text style={{fontSize: 25}}>{item.name}</Text>
             <View style={{flexDirection: 'row'}}>
-              <Text>{item.rating}</Text>
-              <Text>({item.review_count})</Text>
-              <Text>{item.price}</Text>
+              <Text style={{fontSize: 20, color: 'orange'}}>{item.rating}</Text>
+              <StarRating disabled={true} maxStars={5} rating={item.rating} starSize={20} starColor={'orange'}/>
+              <Text style={{fontSize: 20, color: '#1E90FF'}}>({item.review_count})</Text>
+              <Text style={{fontSize: 20}}>{item.price}</Text>
             </View>
             <View>
-              <Text>{Math.round(item.distance/1609.34*100)/100} mi</Text>
-              <Text>{item.location.address1}</Text>
+              <Text style={{fontSize: 20}}>{Math.round(item.distance/1609.34*100)/100} mi</Text>
+              <Text style={{fontSize: 20}}>{item.location.address1}</Text>
             </View>
           </View>
         </View>
