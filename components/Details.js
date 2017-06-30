@@ -25,7 +25,8 @@ class Details extends Component {
 
   componentDidMount() {
     var id = this.props.navigation.state.params.details.id;
-    var token = 'L_3KTQM3QhzcgVmUwW43e5yCIZqaqnVnAOZoshRZLF7P2GMfj0i5vFiiPBRXb9aCXemb83cR2vPvHKB3iYPsEoMIbvJh3d2hZk1PAJAeo2kNB2QEXLshrZzMgjtVWXYx';
+    var token = this.props.navigation.state.params.token;
+    console.log('Details token: ' + token);
     this.fetchReviews(token, id)
   }
 

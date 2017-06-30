@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   View,
   Text,
   TouchableHighlight
@@ -16,8 +17,9 @@ class Search extends Component {
 
   constructor(props) {
     super(props);
-    this.lattitude = '';
-    this.longitude = '';
+    this.state = {
+      yelpToken: ''
+    }
   };
 
   componentDidMount() {
@@ -29,11 +31,34 @@ class Search extends Component {
       (error) => alert(error),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
+    this.authCheck();
+  }
+
+  async authCheck() {
+    try {
+      const token = await AsyncStorage.getItem('yelpToken');
+      if (token !== null) {
+        token = JSON.parse(token);
+        if (token.expiration > Date.now()) {
+          console.log('got it! ' + token.access_token);
+          this.setState({
+            yelpToken: token.access_token
+          })
+          console.log(this.state.yelpToken)
+        } else {
+          console.log('token is expired')
+          this.getYelpAuth();
+        }
+      } else {
+        console.log('token is null')
+        this.getYelpAuth();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   getYelpAuth() {
-    this.latitude = this.state.position.coords.latitude
-    this.longitude = this.state.position.coords.longitude
     console.log(authForm);
     fetch('https://api.yelp.com/oauth2/token', {
       method: 'POST',
@@ -43,10 +68,24 @@ class Search extends Component {
       },
       body: authForm
     }).then((response) => response.json())
-      .then((responseJson) => {
+      .then(async (responseJson) => {
         var access_token = responseJson.access_token;
-        console.log(access_token);
-        this.searchForCoffee(access_token);
+        var expires_in = responseJson.expires_in;
+        var expiration = Date.now() + expires_in;
+        console.log('expiration ' + expiration);
+        console.log('from auth call ' + access_token);
+        var yelpToken = {
+          'access_token': access_token,
+          'expiration': expiration
+        }
+        try {
+          await AsyncStorage.setItem('yelpToken', JSON.stringify(yelpToken));
+          this.setState({
+            yelpToken: access_token
+          })
+        } catch (error) {
+          console.log(error);
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -54,7 +93,10 @@ class Search extends Component {
   }
 
   searchForCoffee(token) {
-    fetch(`https://api.yelp.com/v3/businesses/search?term=coffee&latitude=${this.latitude}&longitude=${this.longitude}&radius=5000&sort_by=distance`, {
+    var lat = this.state.position.coords.latitude;
+    var lng = this.state.position.coords.longitude;
+    console.log('lat/lng ' + lat + ' ' + lng)
+    fetch(`https://api.yelp.com/v3/businesses/search?term=coffee&latitude=${lat}&longitude=${lng}&radius=5000&sort_by=distance`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -63,15 +105,15 @@ class Search extends Component {
       .then((responseJson) => {
         var businesses = responseJson.businesses;
         console.log(businesses);
-        this.goToResults(businesses);
+        this.goToResults(businesses, token);
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
-  goToResults(results) {
-    this.props.navigation.navigate('Results', { yelpResults: results })
+  goToResults(results, token) {
+    this.props.navigation.navigate('Results', { yelpResults: results, yelpToken: token })
   }
 
   render() {
@@ -83,7 +125,7 @@ class Search extends Component {
         <TouchableHighlight
           underlayColor= '#1E90FF'
           style={styles.searchButton}
-          onPress={() => this.getYelpAuth()}
+          onPress={() => this.searchForCoffee(this.state.yelpToken)}
         >
           <Text style={styles.searchButtonText}>
             Find Coffee

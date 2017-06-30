@@ -18,9 +18,12 @@ class Results extends Component {
   constructor(props) {
     super(props);
     var navResults = this.props.navigation.state.params.yelpResults;
+    var token = this.props.navigation.state.params.yelpToken;
     this.state = {
-      results : navResults
+      results : navResults,
+      yelpToken: token
     }
+    console.log('Results token ' + this.state.yelpToken)
   }
 
   renderRow(item) {
@@ -49,7 +52,7 @@ class Results extends Component {
   }
 
   goToDetails(params) {
-    this.props.navigation.navigate('Details', {details: params});
+    this.props.navigation.navigate('Details', {details: params, token: this.state.yelpToken});
   }
 
   render() {
