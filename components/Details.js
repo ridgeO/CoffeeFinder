@@ -47,7 +47,7 @@ class Details extends Component {
   }
 
   renderRow(item) {
-    var image = item.user.image_url || 'https://unsplash.it/200'
+    var image = item.user.image_url || 'https://unsplash.it/200';
     return(
       <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 10}}>
         <Image source={{uri: image}} alternat={'No Photo'} style={{width: 150, height: 150, borderRadius: 75, marginBottom: 10}}/>
@@ -61,10 +61,11 @@ class Details extends Component {
   }
 
   render() {
-    var details = this.props.navigation.state.params.details
+    var details = this.props.navigation.state.params.details;
+    var image = details.image_url || 'https://unsplash.it/400';
     return(
       <ScrollView style={{flex: 1}} contentContainerStyle={{alignItems: 'center'}}>
-        <Image source={{uri: details.image_url }} style={{width: 400, height: 400}} />
+        <Image source={{uri: image }} style={{width: 400, height: 400}} />
         <View style={{flexDirection: 'row'}}>
           <Text style={{fontSize: 35, marginTop: 10}}>{details.name}</Text>
         </View>

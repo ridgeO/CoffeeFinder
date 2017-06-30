@@ -27,6 +27,7 @@ class Results extends Component {
   }
 
   renderRow(item) {
+    var image = item.image_url || 'https://unsplash.it/200';
     return (
       <TouchableHighlight
         underlayColor="#fff"
@@ -34,7 +35,7 @@ class Results extends Component {
         onPress={() => this.goToDetails(item)}
       >
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image source={{uri: item.image_url}} style={styles.resultThumbnail}/>
+          <Image source={{uri: image}} style={styles.resultThumbnail}/>
           <View style={{marginLeft: 10}}>
             <Text style={{fontSize: 25}}>{item.name}</Text>
             <View style={{flexDirection: 'row'}}>
