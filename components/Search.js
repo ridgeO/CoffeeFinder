@@ -31,7 +31,7 @@ class Search extends Component {
     );
   }
 
-  fetchData() {
+  getYelpAuth() {
     this.latitude = this.state.position.coords.latitude
     this.longitude = this.state.position.coords.longitude
     console.log(authForm);
@@ -83,7 +83,7 @@ class Search extends Component {
         <TouchableHighlight
           underlayColor= '#1E90FF'
           style={styles.searchButton}
-          onPress={() => this.fetchData()}
+          onPress={() => this.getYelpAuth()}
         >
           <Text style={styles.searchButtonText}>
             Find Coffee

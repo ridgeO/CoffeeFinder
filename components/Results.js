@@ -30,19 +30,17 @@ class Results extends Component {
         style={{flex: 1}}
         onPress={() => this.goToDetails(item)}
       >
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image source={{uri: item.image_url}} style={styles.resultThumbnail}/>
-          <View>
+          <View style={{marginLeft: 10}}>
             <Text style={{fontSize: 25}}>{item.name}</Text>
+            <Text style={{fontSize: 20}}>{item.price}</Text>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 20, color: 'orange'}}>{item.rating}</Text>
               <StarRating disabled={true} maxStars={5} rating={item.rating} starSize={20} starColor={'orange'}/>
               <Text style={{fontSize: 20, color: '#1E90FF'}}>({item.review_count})</Text>
-              <Text style={{fontSize: 20}}>{item.price}</Text>
             </View>
             <View>
               <Text style={{fontSize: 20}}>{Math.round(item.distance/1609.34*100)/100} mi</Text>
-              <Text style={{fontSize: 20}}>{item.location.address1}</Text>
             </View>
           </View>
         </View>
