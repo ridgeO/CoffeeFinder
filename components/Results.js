@@ -34,12 +34,12 @@ class Results extends Component {
           <Image source={{uri: item.image_url}} style={styles.resultThumbnail}/>
           <View style={{marginLeft: 10}}>
             <Text style={{fontSize: 25}}>{item.name}</Text>
-            <Text style={{fontSize: 20}}>{item.price}</Text>
             <View style={{flexDirection: 'row'}}>
               <StarRating disabled={true} maxStars={5} rating={item.rating} starSize={20} starColor={'orange'}/>
               <Text style={{fontSize: 20, color: '#1E90FF'}}>({item.review_count})</Text>
             </View>
-            <View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{fontSize: 20, marginRight: 10}}>{item.price}</Text>
               <Text style={{fontSize: 20}}>{Math.round(item.distance/1609.34*100)/100} mi</Text>
             </View>
           </View>
