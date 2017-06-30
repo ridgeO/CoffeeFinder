@@ -47,9 +47,10 @@ class Details extends Component {
   }
 
   renderRow(item) {
+    var image = item.user.image_url || 'https://unsplash.it/200'
     return(
       <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: 10}}>
-        <Image source={{uri: item.user.image_url}} style={{width: 150, height: 150, borderRadius: 75, marginBottom: 10}}/>
+        <Image source={{uri: image}} alternat={'No Photo'} style={{width: 150, height: 150, borderRadius: 75, marginBottom: 10}}/>
         <View style={{alignItems: 'center'}}>
           <Text style={{fontSize: 25, marginBottom: 10}}>{item.user.name}</Text>
           <StarRating disabled={true} maxStars={5} rating={item.rating} starSize={20} starColor={'orange'}/>
